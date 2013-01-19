@@ -1,4 +1,4 @@
-Fractan
+Fractan [![Build Status](https://travis-ci.org/dvberkel/Fractan.png?branch=master)](https://travis-ci.org/dvberkel/Fractan)
 =======
 
 A Fractan-interpreter
