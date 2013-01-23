@@ -5,7 +5,7 @@
     };
 
     Fraction.prototype.isIntegral = function(){
-	return this.denominator() === 1;
+        return this.denominator() === 1;
     };
 
     var operationFactory = function(numeratorFactory, denominatorFactory){
@@ -17,23 +17,23 @@
     };
 
     Fraction.prototype.add = operationFactory(
-	function(p, q){ return q.denominator() * p.numerator() + p.denominator() * q.numerator();     },
-	function(p, q){ return p.denominator() * q.denominator(); }
+        function(p, q){ return q.denominator() * p.numerator() + p.denominator() * q.numerator();     },
+        function(p, q){ return p.denominator() * q.denominator(); }
     );
 
     Fraction.prototype.multiply = operationFactory(
-	function(p, q){ return p.numerator() * q.numerator(); }, 
-	function(p, q){ return p.denominator() * q.denominator(); }
+        function(p, q){ return p.numerator() * q.numerator(); }, 
+        function(p, q){ return p.denominator() * q.denominator(); }
     );
     
     Fraction.prototype.invert = operationFactory(
-	function(p, q){ return p.denominator(); }, 
-	function(p, q){ return p.numerator(); }
+        function(p, q){ return p.denominator(); }, 
+        function(p, q){ return p.numerator(); }
     );
     
     Fraction.prototype.inverse = operationFactory(
-	function(p, q){ return -p.numerator(); }, 
-	function(p, q){ return p.denominator(); }
+        function(p, q){ return -p.numerator(); }, 
+        function(p, q){ return p.denominator(); }
     );
     
     var gcd = function greatestCommonDivisor(a, b){
