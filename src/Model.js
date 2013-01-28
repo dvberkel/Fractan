@@ -1,4 +1,4 @@
-(function(_, Backbone, Fractan, undefined){
+(function($, _, Backbone, Fractan, undefined){
     var FractanModel = Backbone.Model.extend({
         defaults : { finished : false },
 
@@ -26,5 +26,91 @@
         }
     });
 
+    var BaseView = Backbone.View.extend({
+        template : _.template("<<%= type %>'/>"),
+
+        initialize : function(){
+            this.render();
+        },
+
+        render : function(){
+            this.container();
+        },
+
+        container : function(){
+            if (!this._container) {
+                var container = $(this.template({ type : this.containerType() }));
+                _.each(this.classes(), function(aClass){
+                    container.addClass(aClass);
+                });
+                container.appendTo(this.$el);
+                this._container = container;
+            }
+            return this._container;
+        },
+        
+        containerType : function(){
+            return "div";
+        },
+        
+        classes : function(){
+            return [];
+        }
+    });
+
+    var FractanView = BaseView.extend({
+        render : function(){
+            var container = this.container();
+            new NView({ el : container, model : this.model });
+            new FractionsView({ el : container, model : this.model });
+        },
+
+        classes : function(){
+            return [ "container" ];
+        }
+    });
+
+    var NView = BaseView.extend({
+        render : function(){
+            var container = this.container();
+            new FractionView({ el : container, model : this.model });
+        },
+        
+        classes : function(){
+            return [ "N" ];
+        }
+    });
+    
+    var FractionView = BaseView.extend({
+        render : function(){
+            var container = this.container();
+            new NumeratorView({ el : container, model : this.model });
+            new DenominatorView({ el : container, model : this.model });
+        },
+
+        classes : function(){
+            return [ "fraction" ];
+        }
+    });
+
+    var NumeratorView = BaseView.extend({
+        classes : function(){
+            return [ "numerator" ];
+        }
+    });
+
+    var DenominatorView = BaseView.extend({
+        classes : function(){
+            return [ "denominator" ];
+        }
+    });
+
+    var FractionsView = BaseView.extend({
+        classes : function(){
+            return [ "fractions" ];
+        }
+    });
+    
     Fractan.Model = FractanModel;
-})(_, Backbone, Fractan);
+    Fractan.View = FractanView;
+})(jQuery, _, Backbone, Fractan);

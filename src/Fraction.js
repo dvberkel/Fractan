@@ -1,4 +1,4 @@
-(function(Fractan){
+(function(Backbone, Fractan){
     var Fraction = function(numerator, denominator) {
         this.numerator = function(){ return numerator; };
         this.denominator = function(){ return denominator; };
@@ -51,4 +51,4 @@
     };
 
     Fractan.fraction = fractionFactory;
-})(Fractan);
+})(Backbone, Fractan);
